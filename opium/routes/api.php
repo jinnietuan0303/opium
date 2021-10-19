@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/test', function (){
     return "Đây là kết quả trả về từ server";
 });
+
+Route::apiResource('/category', 'Api\CategoryController');
