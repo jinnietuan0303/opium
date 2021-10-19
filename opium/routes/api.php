@@ -23,3 +23,4 @@ Route::get('/test', function (){
 });
 
 Route::apiResource('/category', 'Api\CategoryController');
+Route::apiResource('/post', 'Api\PostController');

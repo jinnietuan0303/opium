@@ -40,7 +40,6 @@ class PostCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('category_id');
-        CRUD::column('user_id');
         CRUD::column('title');
         CRUD::column('description');
         CRUD::column('photo');
@@ -63,7 +62,6 @@ class PostCrudController extends CrudController
         CRUD::setValidation(PostRequest::class);
 
         CRUD::field('category_id');
-        CRUD::field('user_id');
         CRUD::field('title');
         CRUD::field('description');
         CRUD::field('photo');
