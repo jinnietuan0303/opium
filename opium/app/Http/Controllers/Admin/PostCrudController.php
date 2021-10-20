@@ -40,18 +40,17 @@ class PostCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-//        CRUD::column('category_id');
         CRUD::column('title');
         CRUD::column('description');
-        $this->crud->addColumn([
-            'label' => 'Category',
-            'type' => 'relationship',
-            'name' => 'id',
-            'entity' => 'categories',
-            'model' => 'App\Models\Post',
-            'attribute' => 'name'
+        CRUD::addColumn([
+            'label'     => 'Category', // Table column heading
+            'type'      => 'select',
+            'name'      => 'category_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'categories', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\Models\Category', // foreign key model,
         ]);
-        CRUD::column('photo');
+        CRUD::column('photo')->type('image');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -70,8 +69,6 @@ class PostCrudController extends CrudController
     {
         CRUD::setValidation(PostRequest::class);
 
-//        CRUD::field('category_id');
-
         $this->crud->addFields([
             [
                 'label' => 'Category',
@@ -88,14 +85,18 @@ class PostCrudController extends CrudController
             ]
         ]);
         CRUD::field('title');
-        CRUD::field('description');
-//        CRUD::field('photo');
-        $this->crud->addField([
-            'name' => 'photo',
-            'label' => 'Photo',
-            'type' => 'image',
-            'upload' => true
+        CRUD::addField([   // Wysiwyg
+            'name'  => 'description',
+            'label' => 'Description',
+            'type'  => 'wysiwyg',
         ]);
+        CRUD::field('photo');
+        // $this->crud->addField([
+        //     'name' => 'photo',
+        //     'label' => 'Photo',
+        //     'type' => 'image',
+        //     // 'upload' => false
+        // ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -15,7 +15,7 @@ class Post extends Model
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Category::class, 'id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
