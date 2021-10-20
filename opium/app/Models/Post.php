@@ -20,10 +20,11 @@ class Post extends Model
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function setPhotoAttribute($value){
+    public function setPhotoAttribute($value)
+    {
         $attribute_name = "image";
         $disk = "public";
         $destination_path = "/images";
@@ -31,7 +32,8 @@ class Post extends Model
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
     }
 
-    public function escapeHtml(){
+    public function escapeHtml()
+    {
         return strip_tags($this->description);
     }
 }

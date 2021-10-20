@@ -55,6 +55,14 @@ class PostCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => 'App\Models\Category', // foreign key model,
         ]);
+        CRUD::addColumn([
+            'label'     => 'Author', // Table column heading
+            'type'      => 'select',
+            'name'      => 'user_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'author', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\User', // foreign key model,
+        ]);
         CRUD::column('photo')->type('image');
 
         /**
