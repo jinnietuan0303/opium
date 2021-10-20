@@ -40,26 +40,22 @@ class PostCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-//        CRUD::column('category_id');
         CRUD::column('title');
-        CRUD::column('description');
-        $this->crud->addColumn([
-            'label' => 'Category',
-            'type' => 'select',
-            'name' => 'category_id',
-            'entity' => 'categories',
-            'model' => 'App\Models\Category',
-            'attribute' => 'category_name'
+        CRUD::addColumn([   // Wysiwyg
+            'name'  => 'description',
+            'label' => 'Description',
+            'type'  => 'model_function',
+            'function_name' => 'escapeHtml'
         ]);
-        CRUD::column('photo');
-        $this->crud->addColumn([
-           'label' => 'Author',
-           'type' => 'text',
-           'name' => 'user_id',
-            'entity' => 'author',
-            'model' => 'App\User',
-            'attribute' => 'name'
+        CRUD::addColumn([
+            'label'     => 'Category', // Table column heading
+            'type'      => 'select',
+            'name'      => 'category_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'categories', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\Models\Category', // foreign key model,
         ]);
+        CRUD::column('photo')->type('image');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -78,8 +74,6 @@ class PostCrudController extends CrudController
     {
         CRUD::setValidation(PostRequest::class);
 
-//        CRUD::field('category_id');
-
         $this->crud->addFields([
             [
                 'label' => 'Category',
@@ -87,7 +81,7 @@ class PostCrudController extends CrudController
                 'name' => 'category_id',
                 'entity' => 'categories',
                 'model' => 'App\Models\Category',
-                'attribute' => 'category_name'
+                'attribute' => 'name'
             ],
             [
                 'name' => 'user_id',
@@ -96,14 +90,18 @@ class PostCrudController extends CrudController
             ]
         ]);
         CRUD::field('title');
-        CRUD::field('description');
-//        CRUD::field('photo');
-        $this->crud->addField([
-            'name' => 'photo',
-            'label' => 'Photo',
-            'type' => 'image',
-            'upload' => true
+        CRUD::addField([   // Wysiwyg
+            'name'  => 'description',
+            'label' => 'Description',
+            'type'  => 'wysiwyg',
         ]);
+        CRUD::field('photo');
+        // $this->crud->addField([
+        //     'name' => 'photo',
+        //     'label' => 'Photo',
+        //     'type' => 'image',
+        //     // 'upload' => false
+        // ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

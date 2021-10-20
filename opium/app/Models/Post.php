@@ -15,12 +15,12 @@ class Post extends Model
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Category::class, 'id', 'id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function setPhotoAttribute($value){
@@ -29,5 +29,9 @@ class Post extends Model
         $destination_path = "/images";
 
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    }
+
+    public function escapeHtml(){
+        return strip_tags($this->description);
     }
 }
