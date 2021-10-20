@@ -55,15 +55,15 @@ class PostCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => 'App\Models\Category', // foreign key model,
         ]);
-        CRUD::column('photo')->type('image');
         CRUD::addColumn([
-           'label' => 'Author',
-           'type' => 'text',
-           'name' => 'user_id',
-           'entity' => 'author',
-           'attribute' => 'name',
-           'model' => 'App\User'
+            'label'     => 'Author', // Table column heading
+            'type'      => 'select',
+            'name'      => 'user_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'author', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\User', // foreign key model,
         ]);
+        CRUD::column('photo')->type('image');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -127,5 +127,33 @@ class PostCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation(){
+        $this->crud->set('show.setFromDb', false);
+        CRUD::column('title');
+        CRUD::addColumn([   // Wysiwyg
+            'name'  => 'description',
+            'label' => 'Description',
+            'type'  => 'model_function',
+            'function_name' => 'escapeHtml'
+        ]);
+        CRUD::addColumn([
+            'label'     => 'Category', // Table column heading
+            'type'      => 'select',
+            'name'      => 'category_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'categories', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\Models\Category', // foreign key model,
+        ]);
+        CRUD::addColumn([
+            'label'     => 'Author', // Table column heading
+            'type'      => 'select',
+            'name'      => 'user_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'author', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => 'App\User', // foreign key model,
+        ]);
+        CRUD::column('photo')->type('image');
     }
 }

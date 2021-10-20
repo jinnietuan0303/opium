@@ -51,6 +51,8 @@ class PostController extends Controller
     public function show($id)
     {
         //
+        $post = Post::find($id);
+        return response()->json($post, 200);
     }
 
     /**
@@ -85,5 +87,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTop5(){
+//        $posts = Post::orderBy('created_at', 'desc')
+//            ->limit(5)->get();
+//        return response()->json($posts, 200);
+        return 'abv';
     }
 }
