@@ -11,4 +11,9 @@ class Category extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Post::classid, 'id');
+    }
 }
