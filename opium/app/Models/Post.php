@@ -15,12 +15,12 @@ class Post extends Model
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Category::class, 'id');
+        return $this->hasOne(Category::class, 'id', 'id');
     }
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
 
     public function setPhotoAttribute($value){

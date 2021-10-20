@@ -45,13 +45,21 @@ class PostCrudController extends CrudController
         CRUD::column('description');
         $this->crud->addColumn([
             'label' => 'Category',
-            'type' => 'relationship',
-            'name' => 'id',
+            'type' => 'select',
+            'name' => 'category_id',
             'entity' => 'categories',
-            'model' => 'App\Models\Post',
-            'attribute' => 'name'
+            'model' => 'App\Models\Category',
+            'attribute' => 'category_name'
         ]);
         CRUD::column('photo');
+        $this->crud->addColumn([
+           'label' => 'Author',
+           'type' => 'text',
+           'name' => 'user_id',
+            'entity' => 'author',
+            'model' => 'App\User',
+            'attribute' => 'name'
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -79,7 +87,7 @@ class PostCrudController extends CrudController
                 'name' => 'category_id',
                 'entity' => 'categories',
                 'model' => 'App\Models\Category',
-                'attribute' => 'name'
+                'attribute' => 'category_name'
             ],
             [
                 'name' => 'user_id',
