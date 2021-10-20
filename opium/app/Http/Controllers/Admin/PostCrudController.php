@@ -156,4 +156,6 @@ class PostCrudController extends CrudController
         ]);
         CRUD::column('photo')->type('image');
     }
+
+
 }

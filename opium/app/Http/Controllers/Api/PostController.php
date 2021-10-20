@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -51,10 +52,11 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $post = Post::find($id)
-        ->leftJoin('categories', 'posts.category_id', '=', 'categories.id')
-        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-        ->get();
+        $post = DB::table('posts')
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->where('posts.id', '=', $id)
+            ->get();
         return response()->json($post, 200);
     }
 
