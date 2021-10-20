@@ -20,7 +20,7 @@ class Post extends Model
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
 
     public function setPhotoAttribute($value){

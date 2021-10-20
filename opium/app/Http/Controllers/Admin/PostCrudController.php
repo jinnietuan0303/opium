@@ -56,6 +56,14 @@ class PostCrudController extends CrudController
             'model'     => 'App\Models\Category', // foreign key model,
         ]);
         CRUD::column('photo')->type('image');
+        CRUD::addColumn([
+           'label' => 'Author',
+           'type' => 'text',
+           'name' => 'user_id',
+           'entity' => 'author',
+           'attribute' => 'name',
+           'model' => 'App\User'
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
