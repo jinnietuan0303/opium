@@ -17,9 +17,11 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::paginate(10);
-
-        return response()->json($posts, 200);
+        $post = DB::table('posts')
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'categories.name as categoryName', 'users.name')->paginate(10);
+        return response()->json($post, 200);
     }
 
     /**
@@ -56,7 +58,7 @@ class PostController extends Controller
             ->join('categories', 'posts.category_id', '=', 'categories.id')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.id', '=', $id)
-            ->get();
+            ->select('posts.*', 'categories.name as categoryName', 'users.name')->get();
         return response()->json($post, 200);
     }
 
