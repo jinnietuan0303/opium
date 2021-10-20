@@ -93,9 +93,8 @@ class PostController extends Controller
     }
 
     public function getTop5(){
-//        $posts = Post::orderBy('created_at', 'desc')
-//            ->limit(5)->get();
-//        return response()->json($posts, 200);
-        return response()->json('abc', 200);
+        $posts = Post::orderBy('created_at', 'desc')
+            ->limit(5)->get();
+        return response()->json($posts, 200);
     }
 }

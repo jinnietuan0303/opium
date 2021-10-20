@@ -24,4 +24,4 @@ Route::get('/test', function (){
 
 Route::apiResource('/category', 'Api\CategoryController');
 Route::apiResource('/post', 'Api\PostController');
-Route::get('/post/top-5', 'Api\PostController@getTop5');
+Route::get('/post-top-5', 'Api\PostController@getTop5');
