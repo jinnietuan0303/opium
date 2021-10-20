@@ -51,7 +51,10 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $post = Post::find($id);
+        $post = Post::find($id)
+        ->leftJoin('categories', 'posts.category_id', '=', 'categories.id')
+        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+        ->get();
         return response()->json($post, 200);
     }
 
@@ -93,6 +96,6 @@ class PostController extends Controller
 //        $posts = Post::orderBy('created_at', 'desc')
 //            ->limit(5)->get();
 //        return response()->json($posts, 200);
-        return 'abv';
+        return response()->json('abc', 200);
     }
 }
