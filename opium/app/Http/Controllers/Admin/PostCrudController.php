@@ -85,7 +85,6 @@ class PostCrudController extends CrudController
             'label' => 'Description',
             'type'  => 'wysiwyg',
         ]);
-        //        CRUD::field('photo');
         $this->crud->addField([
             'name' => 'photo',
             'label' => 'Photo',
@@ -143,6 +142,11 @@ class PostCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => 'App\User', // foreign key model,
         ]);
-        CRUD::column('photo')->type('image');
+        CRUD::addColumn([
+            'name' => 'photo',
+            'label' => 'Photo',
+            'type' => 'image',
+            'prefix'    => 'storage'
+        ]);
     }
 }
