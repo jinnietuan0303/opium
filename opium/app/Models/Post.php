@@ -30,7 +30,7 @@ class Post extends Model
     {
         $attribute_name = "photo";
         $disk = "public";
-        $destination_path = "opium/public/images";
+        $destination_path = "/Users/tuantran/opium/opium/public/images";
 
         // if the image was erased
         if ($value==null) {

@@ -89,7 +89,7 @@ class PostCrudController extends CrudController
              'name' => 'photo',
              'label' => 'Photo',
              'type' => 'image',
-              'upload' => false
+              'upload' => true
          ]);
 
         /**
