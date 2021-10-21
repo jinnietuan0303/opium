@@ -41,14 +41,15 @@ class PostCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->setView();
-        $this->crud->addFilter([
-            'type' => 'text',
-            'name' => 'title',
-            'label' => 'Title'
-        ],
-        false,
-            function ($value){
-                $this->crud->addClause('where', 'title', 'like', '%'.$value.'%');
+        $this->crud->addFilter(
+            [
+                'type' => 'text',
+                'name' => 'title',
+                'label' => 'Title'
+            ],
+            false,
+            function ($value) {
+                $this->crud->addClause('where', 'title', 'like', '%' . $value . '%');
             }
         );
     }
@@ -84,13 +85,14 @@ class PostCrudController extends CrudController
             'label' => 'Description',
             'type'  => 'wysiwyg',
         ]);
-//        CRUD::field('photo');
-         $this->crud->addField([
-             'name' => 'photo',
-             'label' => 'Photo',
-             'type' => 'image',
-              'upload' => true
-         ]);
+        //        CRUD::field('photo');
+        $this->crud->addField([
+            'name' => 'photo',
+            'label' => 'Photo',
+            'type' => 'image',
+            'upload' => true,
+            'prefix'    => 'storage'
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -110,12 +112,14 @@ class PostCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    protected function setupShowOperation(){
+    protected function setupShowOperation()
+    {
         $this->crud->set('show.setFromDb', false);
         $this->setView();
     }
 
-    function setView(){
+    function setView()
+    {
         CRUD::column('title');
         CRUD::addColumn([   // Wysiwyg
             'name'  => 'description',
@@ -141,5 +145,4 @@ class PostCrudController extends CrudController
         ]);
         CRUD::column('photo')->type('image');
     }
-
 }
