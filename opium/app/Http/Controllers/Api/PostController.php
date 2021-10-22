@@ -20,7 +20,7 @@ class PostController extends Controller
         $post = DB::table('posts')
             ->join('categories', 'posts.category_id', '=', 'categories.id')
             ->join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'categories.name as categoryName', 'users.name')->paginate(10);
+            ->select('posts.*', 'categories.name as categoryName', 'users.name')->paginate(2);
         return response()->json($post, 200);
     }
 

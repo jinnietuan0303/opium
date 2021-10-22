@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -52,7 +53,20 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($id);
-        return response()->json($category, 200);
+
+        $posts = DB::table('categories')
+            ->join('posts', 'posts.category_id', '=', 'categories.id')
+            ->where('categories.id', '=', $id)
+            ->select('posts.*')->paginate(2);
+
+        return response()->json(
+            [
+                'id' => $category->id,
+                'name' => $category->name,
+                'posts' => $posts
+            ],
+            200
+        );
     }
 
     /**
