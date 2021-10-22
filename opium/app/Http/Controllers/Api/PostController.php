@@ -20,7 +20,7 @@ class PostController extends Controller
         $post = DB::table('posts')
             ->join('categories', 'posts.category_id', '=', 'categories.id')
             ->join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'categories.name as categoryName', 'users.name')->paginate(2);
+            ->select('posts.*', 'categories.name as categoryName', 'users.name')->paginate(6);
         return response()->json($post, 200);
     }
 
@@ -59,7 +59,20 @@ class PostController extends Controller
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.id', '=', $id)
             ->select('posts.*', 'categories.name as categoryName', 'users.name')->get();
-        return response()->json($post, 200);
+
+        $nav = DB::select(
+            'SELECT *
+            FROM (
+                SELECT  id, 
+                    lag(id) over (order by created_at asc) as prev,
+                    lag(title) over (order by created_at asc) as prev_title,
+                    lead(id) over (order by created_at asc) as next,
+                    lead(title) over (order by created_at asc) as next_title
+                FROM opium_blog.posts
+                ) x
+            WHERE id = ' . $id
+        );
+        return response()->json(['post' => $post, 'nav' => $nav], 200);
     }
 
     /**
@@ -96,7 +109,8 @@ class PostController extends Controller
         //
     }
 
-    public function getTop5(){
+    public function getTop5()
+    {
         $posts = Post::orderBy('created_at', 'desc')
             ->limit(5)->get();
         return response()->json($posts, 200);

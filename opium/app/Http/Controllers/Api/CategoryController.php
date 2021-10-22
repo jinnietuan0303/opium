@@ -17,8 +17,12 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::paginate(10);
-
+        $categories =
+            DB::select(
+                'SELECT c.*, 
+                (SELECT COUNT(*) FROM opium_blog.posts AS p WHERE p.category_id = c.id) AS "total_post"
+                FROM opium_blog.categories AS c'
+            );
         return response()->json($categories, 200);
     }
 
@@ -57,7 +61,7 @@ class CategoryController extends Controller
         $posts = DB::table('categories')
             ->join('posts', 'posts.category_id', '=', 'categories.id')
             ->where('categories.id', '=', $id)
-            ->select('posts.*')->paginate(2);
+            ->select('posts.*')->paginate(5);
 
         return response()->json(
             [
